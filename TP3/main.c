@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
 	while(esperluete == '&') {
 	    command = strtok(scanCommand, "&");
 	    strcpy(scanCommand, command);
-	    execute(scanCommand);
+	    create_ctx(16384, execute(scanCommand), NULL);
 	    i=0;
 	    scanf("%50s", scanCommand);
 	    while(scanCommand[i] != '\0'){

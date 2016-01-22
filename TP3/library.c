@@ -7,14 +7,15 @@ struct cmd_s commands [4] = {
     {"compute", fonctionCompute,	"Fonction de calcul"}
 };
 
-void execute(const char *name){
+func_t *execute(const char *name){
     unsigned int i = 0;
     while (i<(sizeof(commands)/sizeof(commands[0])) && (strcmp(name, commands[i].name) != 0))
   	i++;
-    if(i<(sizeof(commands)/sizeof(commands[0])))
-	(commands[i].func)();
-    else
-	printf("command not found \n");
+    /*if(i<(sizeof(commands)/sizeof(commands[0])))*/
+	return commands[i].func;
+    /* else {
+	return printf("command not found \n");
+	}*/
 }
 
 void loop(void){
@@ -25,31 +26,25 @@ void loop(void){
 }
 
 
-
-int fonctionPS(){
+void fonctionPS(){
     printf ("L'identifiant du processus est %d\n", (int) getpid ());
-    return 0;
 }
 
 
 
-int fonctionLS(){
-    int return_value;
-    return_value = system("ls");
-    return return_value;
+void fonctionLS(){
+    system("ls");
 }
 
 
 
-int fonctionCAT(){
-    int return_value;
-    return_value = system ("cat");
-    return return_value;
+void fonctionCAT(){
+    system ("cat");
 }
 
 
 
-int fonctionCompute(){
+void fonctionCompute(){
     int n, first = 0, second = 1, next, c;
  
     printf("Entrez le nombre de termes\n");
@@ -57,8 +52,7 @@ int fonctionCompute(){
  
     printf("Premiers %d termes de la serie de Fibonacci sont :\n",n);
  
-    for ( c = 0 ; c < n ; c++ )
-	{
+    for ( c = 0 ; c < n ; c++ )	{
 	    if ( c <= 1 )
 		next = c;
 	    else
@@ -68,6 +62,5 @@ int fonctionCompute(){
 		    second = next;
 		}
 	    printf("%d\n",next);
-	}
-    return 0;
+    }
 }
