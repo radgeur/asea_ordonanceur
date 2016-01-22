@@ -8,10 +8,13 @@ struct cmd_s commands [4] = {
 };
 
 void execute(const char *name){
-    int i = 0;
-    while (i<4 && (strcmp(name, commands[i].name) != 0))
+    unsigned int i = 0;
+    while (i<(sizeof(commands)/sizeof(commands[0])) && (strcmp(name, commands[i].name) != 0))
   	i++;
-    (commands[i].func)();
+    if(i<(sizeof(commands)/sizeof(commands[0])))
+	(commands[i].func)();
+    else
+	printf("command not found \n");
 }
 
 void loop(void){
@@ -47,8 +50,24 @@ int fonctionCAT(){
 
 
 int fonctionCompute(){
-    int return_value1=10,return_value2=42;
-    int result = return_value1+return_value2;
-
-    return result;
+    int n, first = 0, second = 1, next, c;
+ 
+    printf("Entrez le nombre de termes\n");
+    scanf("%d",&n);
+ 
+    printf("Premiers %d termes de la serie de Fibonacci sont :\n",n);
+ 
+    for ( c = 0 ; c < n ; c++ )
+	{
+	    if ( c <= 1 )
+		next = c;
+	    else
+		{
+		    next = first + second;
+		    first = second;
+		    second = next;
+		}
+	    printf("%d\n",next);
+	}
+    return 0;
 }
