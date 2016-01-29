@@ -1,17 +1,8 @@
 #include "ctx.h"
-#include "./hw/hw.h"
 #include "sem.h"
 #include <string.h>
 #include "library.h"
-
-void f_ping(void *arg);
-void f_pong(void *arg);
-void producteur(void *arg);
-void consommateur(void *arg);
-
-struct sem_s * mutex;
-struct sem_s * fullSem;
-struct sem_s * emptySem;
+#include "disk/lib_hardware.h"
 
 int main(int argc, char *argv[])
 {
@@ -19,6 +10,19 @@ int main(int argc, char *argv[])
     char scanCommand[50], esperluete;
     char * command;
     int i = 0;
+
+    if(init_hardware("hardware.ini") == 0) {
+	fprintf(stderr, "Error in hardware initialization\n");
+	exit(EXIT_FAILURE);
+    }
+
+    /* Interrupt handlers */
+    for(i=0; i<16; i++)
+	IRQVECTOR[i] = empty_it;
+
+    /* Allows all IT */
+    _mask(1);
+    chk_hda();
 
     /*catch the command to execute*/
     scanf("%50s", scanCommand);
