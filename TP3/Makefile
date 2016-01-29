@@ -3,7 +3,7 @@ CFLAGS = -W -Wall -pedantic
 CFLAGS += -D_XOPEN_SOURCE=500
 CFLAGS += -g -m32
 
-all: clean main
+all: main
 
 ctx.o : ./hw/hw.h ctx.c ctx.h
 	$(CC) $(CFLAGS) -c ctx.c

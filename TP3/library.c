@@ -11,11 +11,12 @@ func_t *execute(const char *name){
     unsigned int i = 0;
     while (i<(sizeof(commands)/sizeof(commands[0])) && (strcmp(name, commands[i].name) != 0))
   	i++;
-    /*if(i<(sizeof(commands)/sizeof(commands[0])))*/
+    if(i<(sizeof(commands)/sizeof(commands[0])))
 	return commands[i].func;
-    /* else {
-	return printf("command not found \n");
-	}*/
+    else{
+	printf("command not found \n");
+	exit(EXIT_FAILURE);
+    }
 }
 
 void loop(void){
@@ -50,17 +51,14 @@ void fonctionCompute(){
     printf("Entrez le nombre de termes\n");
     scanf("%d",&n);
  
-    printf("Premiers %d termes de la serie de Fibonacci sont :\n",n);
- 
     for ( c = 0 ; c < n ; c++ )	{
-	    if ( c <= 1 )
-		next = c;
-	    else
-		{
-		    next = first + second;
-		    first = second;
-		    second = next;
-		}
-	    printf("%d\n",next);
+	if ( c <= 1 )
+	    next = c;
+	else
+	    {
+		next = first + second;
+		first = second;
+		second = next;
+	    }
     }
 }

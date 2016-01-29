@@ -44,10 +44,15 @@ int main(int argc, char *argv[])
 	}
 	command = strtok(scanCommand, "&");
 	strcpy(scanCommand, command);
-	execute(scanCommand);
-    }else
-	execute(scanCommand);
-
+	func_t * toexec = execute(scanCommand);
+	toexec(NULL);
+    }
+    else{
+	func_t * toexec = execute(scanCommand);
+	toexec(NULL);
+	printf("coucou\n");
+    }
+	
     /*start the schedule*/
     start_sched();
     exit(EXIT_SUCCESS);
