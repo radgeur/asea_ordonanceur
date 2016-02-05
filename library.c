@@ -1,4 +1,5 @@
 #include "library.h"
+#include "ctx.h"
 
 struct cmd_s commands [4] = {
     {"ps", fonctionPS, 	"Afficher la liste des processus"},
@@ -56,6 +57,7 @@ void fonctionCompute(){
 	    next = c;
 	else
 	    {
+		printf("%d\n", n);
 		next = first + second;
 		first = second;
 		second = next;

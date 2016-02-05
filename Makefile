@@ -5,7 +5,7 @@ CFLAGS += -g -m32
 
 all: main
 
-ctx.o : ./hw/hw.h ctx.c ctx.h
+ctx.o : ./hw/hw.c ./hw/hw.h ctx.c ctx.h
 	$(CC) $(CFLAGS) -c ctx.c
 
 main : ./hw/hw.o ctx.o sem.o main.o library.o
@@ -17,7 +17,7 @@ main.o: main.c ctx.h ctx.c hw/hw.h hw/hw.c sem.h sem.c library.h library.c
 sem.o : ctx.h sem.c sem.h
 	$(CC) $(CFLAGS) -c sem.c
 
-library.o : ctx.h library.h library.c
+library.o : ctx.h ctx.c library.h library.c 
 	$(CC) $(CFLAGS) -c library.c
 
 clean:

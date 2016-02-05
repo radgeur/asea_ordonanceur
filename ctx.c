@@ -11,7 +11,7 @@ static void start_current_ctx (void) {
   current_ctx->ctx_state = CTX_EXEQ;
   current_ctx->ctx_F(current_ctx->ctx_args);
   current_ctx->ctx_state = CTX_END;
-  printf ("\nUne des fonctions est terminée\n");
+  printf ("\nUne des fonctions est terminée\n");  
   yield();
 }
 
@@ -49,6 +49,9 @@ void switch_to_ctx (struct ctx_s *next) {
   if (current_ctx->ctx_state == CTX_INIT)
     start_current_ctx();
 
+  /*enable the interruptions*/
+  irq_enable();
+  
   /*while the next context is end, switch*/ 
   while (next->ctx_state == CTX_END || next->ctx_state ==CTX_BLOQ ){
     if (current_ctx == next) {
@@ -67,9 +70,6 @@ void switch_to_ctx (struct ctx_s *next) {
       next=next->next_ctx;
     }
   }
-
-  /*enable the interruptions*/
-  irq_enable();
 }
 
 /*create a context for a function and add it to the ring*/
@@ -86,7 +86,6 @@ void create_ctx(int stack_size, func_t *f, void *args) {
 
 /*switch to the next enable context*/
 void yield(){
-  printf("coucou\n");
   if(current_ctx)
     switch_to_ctx(current_ctx->next_ctx);
   else if (ctx_ring)

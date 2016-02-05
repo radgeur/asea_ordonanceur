@@ -50,7 +50,6 @@ int main(int argc, char *argv[])
     else{
 	func_t * toexec = execute(scanCommand);
 	toexec(NULL);
-	printf("coucou\n");
     }
 	
     /*start the schedule*/
